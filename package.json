@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/b-dorsal/HackUpstate/issues"
   },
-  "homepage": "https://github.com/b-dorsal/HackUpstate#readme"
+  "homepage": "https://github.com/b-dorsal/HackUpstate#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "ejs": "^2.5.6",
+    "express": "^4.15.2",
+    "mongojs": "^2.4.0"
+  }
 }
