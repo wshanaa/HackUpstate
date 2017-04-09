@@ -48,6 +48,16 @@ router.get('/user/:id/favorites/', function(req, res, next){
 });
 
 
+router.post('/user/:id/favorites', function (req, res) {
+  
+  	//Add the new item to the user's favorites list
+	var item = req.body.id;
+	
+	usrdb.users.findAndModify({  query:{_id: mongodb.ObjectId(req.params.id)}  , update:{$push:{favorites:item}}  }, function(err, user){
+		res.sendStatus(200);
+	})
+
+})
 
 
 
