@@ -14,7 +14,6 @@ router.get('/items', function(req, res, next){
 	});
 });
 
-
 //Get single item
 router.get('/item/:id', function(req, res, next){
 	itemsdb.storeItems.findOne({_id: mongodb.ObjectId(req.params.id)}, function(err, item){
@@ -24,6 +23,5 @@ router.get('/item/:id', function(req, res, next){
 		res.json(item);
 	});
 });
-
 
 module.exports = router;
