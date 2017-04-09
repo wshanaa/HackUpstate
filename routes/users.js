@@ -7,7 +7,6 @@ var async = require('async');
 var usrdb = mongodb('mongodb://controlUser:Oswego123@ds155820.mlab.com:55820/users', ['users']);
 var itemsdb = mongodb('mongodb://controlUser:Oswego123@ds155490.mlab.com:55490/storedb', ['storeItems']);
 
-
 router.get('/users', function(req, res, next){
 	usrdb.users.find(function(err, users){
 		if(err){
@@ -26,7 +25,6 @@ router.get('/user/:id', function(req, res, next){
 		res.json(user);
 	});
 });
-
 
 //Get the users favorites list
 router.get('/user/:id/favorites/', function(req, res, next){
@@ -47,18 +45,34 @@ router.get('/user/:id/favorites/', function(req, res, next){
 	});
 });
 
-
+//Add the new item to the user's favorites list
 router.post('/user/:id/favorites', function (req, res) {
-  
-  	//Add the new item to the user's favorites list
 	var item = req.body.id;
-	
-	usrdb.users.findAndModify({  query:{_id: mongodb.ObjectId(req.params.id)}  , update:{$push:{favorites:item}}  }, function(err, user){
+	itemsdb.storeItems.findOne({_id: mongodb.ObjectId(item)}, function(err, itemvalue){
+		if(itemvalue==null){
+			res.sendStatus(400);
+		}else{
+			usrdb.users.findAndModify({query:{_id: mongodb.ObjectId(req.params.id)}, update:{$addToSet:{favorites:item}}}, function(err, user){
+				if(err){
+					res.send(err);
+				}
+				res.sendStatus(200);
+			});
+		}
+	});
+
+});
+
+//Remove an item from the user's favorites list
+router.delete('/user/:id/favorites/:item', function (req,res){
+	var item = req.params.item;
+	usrdb.users.findAndModify({query:{_id: mongodb.ObjectId(req.params.id)}, update:{$pull:{favorites:item}}}, function(err, user){
+		if(err){
+			res.send(err);
+		}
 		res.sendStatus(200);
-	})
-
-})
-
+	});
+});
 
 
 module.exports = router;
