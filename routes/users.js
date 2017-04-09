@@ -59,7 +59,7 @@ router.post('/user/:id/list', function (req, res) {
 				if(user==null){
 					res.status(404).send(err);
 				}else{
-					res.sendStatus(200);
+					res.status(200).send(itemvalue);
 				}
 			});
 		}
