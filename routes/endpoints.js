@@ -4,6 +4,8 @@ var mongodb = require('mongojs');
 
 var db = mongodb('mongodb://controlUser:Oswego123@ds155490.mlab.com:55490/storedb', ['produce', 'cleaning', 'dairy', 'frozen', 'nonperishable', 'bakery']);
 
+
+
 //Get all produce
 router.get('/produce', function(req, res, next){
 	db.produce.find(function(err, produce){
@@ -128,5 +130,11 @@ router.get('/bakery/:id', function(req, res, next){
 		res.json(bakery);
 	});
 });
+
+
+
+
+
+
 
 module.exports = router;
