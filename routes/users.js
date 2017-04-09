@@ -26,6 +26,63 @@ router.get('/user/:id', function(req, res, next){
 	});
 });
 
+
+
+//SHOPPING LIST STUFF
+//Get the users shopping list
+router.get('/user/:id/list/', function(req, res, next){
+	usrdb.users.findOne({_id: mongodb.ObjectId(req.params.id)}, function(err, user){
+		if(err){
+			res.send(err);
+		}
+
+		var items = user.Items;
+
+		async.parallel(
+			items.map((x) => itemsdb.storeItems.findOne.bind(itemsdb.storeItems, {_id: mongodb.ObjectId(x)})),
+			function(err, results) {
+				res.json(results);
+			}
+		);
+
+	});
+});
+
+//Add the new item to the user's shopping list
+router.post('/user/:id/list', function (req, res) {
+	var item = req.body.id;
+	itemsdb.storeItems.findOne({_id: mongodb.ObjectId(item)}, function(err, itemvalue){
+		if(itemvalue==null){
+			res.sendStatus(400);
+		}else{
+			usrdb.users.findAndModify({query:{_id: mongodb.ObjectId(req.params.id)}, update:{$addToSet:{Items:item}}}, function(err, user){
+				if(user==null){
+					res.status(404).send(err);
+				}else{
+					res.sendStatus(200);
+				}
+			});
+		}
+	});
+
+});
+
+//Remove an item from the user's shopping list
+router.delete('/user/:id/list/:item', function (req,res){
+	var item = req.params.item;
+	usrdb.users.findAndModify({query:{_id: mongodb.ObjectId(req.params.id)}, update:{$pull:{Items:item}}}, function(err, user){
+		if(user==null){
+			res.status(404).send(err);
+		}else{
+			res.sendStatus(200);
+		}
+	});
+});
+
+
+
+
+//FAVORITES LIST STUFF
 //Get the users favorites list
 router.get('/user/:id/favorites/', function(req, res, next){
 	usrdb.users.findOne({_id: mongodb.ObjectId(req.params.id)}, function(err, user){
@@ -53,10 +110,11 @@ router.post('/user/:id/favorites', function (req, res) {
 			res.sendStatus(400);
 		}else{
 			usrdb.users.findAndModify({query:{_id: mongodb.ObjectId(req.params.id)}, update:{$addToSet:{favorites:item}}}, function(err, user){
-				if(err){
-					res.send(err);
+				if(user==null){
+					res.status(404).send(err);
+				}else{
+					res.sendStatus(200);
 				}
-				res.sendStatus(200);
 			});
 		}
 	});
@@ -67,10 +125,11 @@ router.post('/user/:id/favorites', function (req, res) {
 router.delete('/user/:id/favorites/:item', function (req,res){
 	var item = req.params.item;
 	usrdb.users.findAndModify({query:{_id: mongodb.ObjectId(req.params.id)}, update:{$pull:{favorites:item}}}, function(err, user){
-		if(err){
-			res.send(err);
+		if(user==null){
+			res.status(404).send(err);
+		}else{
+			res.sendStatus(200);
 		}
-		res.sendStatus(200);
 	});
 });
 
