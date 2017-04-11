@@ -1,0 +1,65 @@
+<div style="margin: 100px">
+    <div class="jumbotron" style="background: #014040">
+        <span style="margin: 100px;">
+       
+            <div  class="col-lg-12" style="background: #014040; padding-top:50px;" >
+                <!--<h1>Dashboard </h1>-->
+                <div class="row">
+                    <div class="col-lg-4">
+                        <a href="#about" style="color: white"><button type="button" (click)="setAbout()"><img src="src/img/portfolio/apple.png"class="image-responsive"></button>
+                        <h3>Produce</h3>
+                        </a>
+                    </div>
+                    <div class="col-lg-4">
+                        
+                        <a href="#products" style="color: white"><button type="button" (click)="setProducts()"><img src="src/img/portfolio/cleaning.png"class="image-responsive"></button>
+                        <h3>Cleaning</h3></a>
+
+                    </div>
+                    <div class="col-lg-4">
+                        <a href="#cart" style="color: white"><button type="button" (click)="setCart()">
+                            <img src="src/img/portfolio/bakery.png" class="image-responsive"></button>
+                            <h3>Bakery</h3></a>
+                    </div>
+                </div>
+                <br>
+                <br>
+            </div>
+            <div class="col-lg-12" style="background: #014040; padding-top:50px;">
+    <!--<h1>Dashboard </h1>-->
+    <div class="row">
+        <div class="col-lg-4">
+            <a href="#about" style="color: white"><button type="button" (click)="setAbout()"><img src="src/img/portfolio/dairyicon.png"class="image-responsive"></button>
+                        <h3>Dairy</h3>
+                        </a>
+        </div>
+        <div class="col-lg-4">
+
+            <a href="#products" style="color: white"><button type="button" (click)="setProducts()"><img src="src/img/portfolio/can.png"class="image-responsive"></button>
+                        <h3>Non-Perishable</h3></a>
+
+        </div>
+        <div class="col-lg-4">
+            <a href="#cart" style="color: white"><button type="button" (click)="setCart()">
+                            <img src="src/img/portfolio/flake.png" class="image-responsive"></button>
+                            <h3>Frozen</h3></a>
+        </div>
+    </div>
+    <br>
+    <br>
+</div>
+        </span>
+        <h1 style="margin: 50px">Products</h1>
+        <div class="row" *ngFor="let p of prod" style="margin: 25px">
+            <div class="col-md-7">
+                {{p.name}}
+            </div>
+            <div class="col-md-2">
+                {{p.price}}
+            </div>
+            <div class="col-md-3">
+                <button type="button" class="btn btn-default" (click)="addProduct(p._id)" style="width: 100px; background: #9abf4b">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
