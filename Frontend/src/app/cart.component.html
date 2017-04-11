@@ -1,0 +1,22 @@
+<div style="margin: 100px">
+    <div class="jumbotron" style="background: #014040">
+        <h1 style="margin: 50px; color: white">Cart</h1>
+        <div class="row" *ngFor="let p of prod" style="margin: 25px">
+            <div class="col-md-7">
+                {{p.name}}
+            </div>
+            <div class="col-md-2">
+                {{p.price}}
+            </div>
+            <div class="col-md-3">
+                <button type="button" class="btn btn-danger" (click)="deleteProduct(p._id)" style="width: 100px">Remove</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-lg-12">
+    <button type="button" class="btn btn-warning" style="font-size: 50pt; margin: 100px" (click)="getRoute()">Calculate Route</button>
+    <div *ngIf="route" style="margin: 100px">
+        <img src="src/img/portfolio/route.png" style="background: white">
+    </div>
+</div>

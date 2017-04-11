@@ -1,0 +1,17 @@
+h1{
+    font-size: 100pt;
+    text-transform: uppercase;
+    color: white;
+}
+
+h3{
+    font-size: 35pt;
+    color: white;
+}
+
+.star{
+    background: white;
+    max-width: 550px;
+    content: "fa-star"; 
+}
+

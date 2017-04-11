@@ -1,0 +1,29 @@
+<span style="margin: 100px;">
+       
+    <div  class="col-lg-12" style="background: #fff; padding-top:50px;" >
+        <!--<h1>Dashboard </h1>-->
+        <div class="row">
+            <div class="col-lg-4">
+                <a href="#about"><button type="button" (click)="setAbout()"><img src="src/img/portfolio/storestep1.png"class="image-responsive"></button>
+                <h3>Pick Your Local Grocery Store</h3>
+                </a>
+            </div>
+            <div class="col-lg-4">
+                
+                <a href="#products"><button type="button" (click)="setProducts()"><img src="src/img/portfolio/liststep2.png"class="image-responsive"></button>
+                <h3>Create Your Grocery List</h3></a>
+
+            </div>
+            <div class="col-lg-4">
+                <a href="#cart"><button type="button" (click)="setCart()">
+                    <img src="src/img/portfolio/shoppingstep3.png" class="image-responsive"></button>
+                    <h3>Let Us Find Your Fastest In Store Route</h3></a>
+            </div>
+        </div>
+        <br>
+        <br>
+    </div>
+</span>
+<about *ngIf="about" id="about"></about>
+<products *ngIf="products" id="products"></products>
+<cart *ngIf="cart" id="cart"></cart>
